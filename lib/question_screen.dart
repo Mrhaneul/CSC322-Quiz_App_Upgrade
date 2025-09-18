@@ -22,7 +22,9 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   // Receive the answer the user picked and forward it to the parent via the callback
   void answerQuestion(String selectedAnswer) {
-    widget.onSelectAnswer(selectedAnswer); // pass the real selected answer instead of placeholder
+    widget.onSelectAnswer(
+      selectedAnswer,
+    ); // pass the real selected answer instead of placeholder
     setState(() {
       currentQuestionIndex++; // increment by 1
     });
@@ -43,7 +45,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             Text(
               currentQuestion.text,
               style: GoogleFonts.lato(
-                color: const Color.fromARGB(255, 193, 118, 255),
+                color: Colors.white,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
