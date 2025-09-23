@@ -19,20 +19,6 @@ class Quiz extends StatefulWidget {
 
 // This State classs and type is closely connected to another class and type
 class _QuizState extends State<Quiz> {
-  // Store different widgets as variable for to conveniently output them
-  // activeScreen set to nothing, could be null
-  // Widget? activeScreen;
-  // passing switchScreen's pointer to this function as a value to start screen
-
-  // Is used for further initialization task
-  // activeScreen set to StartScreen but not initialized
-  // (Initialized after the object is created)
-  // @override
-  // void initState() {
-  //   activeScreen = StartScreen(switchScreen);
-  //   super.initState(); // Parent class --> State
-  // }
-
   List<String> selectedAnswers = [];
 
   var activeScreen = 'start-screen';

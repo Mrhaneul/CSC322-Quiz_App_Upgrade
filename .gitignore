@@ -71,3 +71,8 @@ windows/
 linux/
 web/
 build/
+
+
+
+pubspec.lock
+pubspec.yaml

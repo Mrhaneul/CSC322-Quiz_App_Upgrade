@@ -72,6 +72,17 @@ class ResultsScreen extends StatelessWidget {
               icon: const Icon(Icons.refresh),
               label: const Text('Restart Quiz!'),
             ),
+            const SizedBox(
+              height: 30,
+            ),
+            TextButton.icon(
+              onPressed: onRestart,
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+              ),
+              icon: const Icon(Icons.refresh),
+              label: const Text('Want to Review the Wrong Questions?'),
+            ),
           ],
         ),
       ),
