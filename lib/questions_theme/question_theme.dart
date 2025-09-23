@@ -14,7 +14,7 @@ class QuestionText extends StatelessWidget {
     return Text(
       text,
       style: GoogleFonts.b612(
-        color: const Color.fromARGB(255, 234, 255, 151),
+        color: const Color.fromARGB(255, 189, 255, 255),
         fontSize: 24,
         fontWeight: FontWeight.bold,
       ),
