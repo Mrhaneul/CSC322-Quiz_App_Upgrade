@@ -52,3 +52,21 @@ windows/
 linux/
 web/
 build/
+
+# Ignore platform-specific folders
+android/
+ios/
+macos/
+windows/
+linux/
+web/
+build/
+
+# Ignore platform-specific folders
+android/
+ios/
+macos/
+windows/
+linux/
+web/
+build/
