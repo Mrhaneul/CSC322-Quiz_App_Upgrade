@@ -44,6 +44,20 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            StepProgressIndicator(
+              totalSteps: 15,
+              currentStep: 12,
+              size: 20,
+              selectedColor: Colors.purpleAccent,
+              unselectedColor: Colors.black,
+              roundedEdges: Radius.circular(10),
+              gradientColor: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Colors.pink, Colors.white],
+              ),
+            ),
+            const SizedBox(height: 20),
             QuestionText(text: currentQuestion.text),
             const SizedBox(height: 30),
             ...currentQuestion.getShuffledAnswers().map((answer) {
