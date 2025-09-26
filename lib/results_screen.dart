@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/data/questions.dart';
 import 'package:quiz_app/questions_summary/questions_summary.dart';
+import 'package:quiz_app/questions_theme/question_theme.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ResultsScreen extends StatelessWidget {
   const ResultsScreen({
@@ -48,19 +49,57 @@ class ResultsScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'You answered $numCorrectQuestions out of $numTotalQuestions questions correctly!',
-              style: GoogleFonts.lato(
-                color: const Color.fromARGB(255, 193, 118, 255),
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
+            QuestionText(
+              text:
+                  'You answered $numCorrectQuestions out of $numTotalQuestions questions correctly!',
+              color: Colors.white,
+              fontsize: 24,
+              fontfamily: 'Lato',
             ),
             const SizedBox(
               height: 30,
             ),
             QuestionSummary(summaryData),
+            const SizedBox(height: 30),
+
+            const SizedBox(height: 24),
+
+            RatingBar.builder(
+              initialRating: 3,
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                switch (index) {
+                  case 0:
+                    return Icon(
+                      Icons.sentiment_very_dissatisfied,
+                      color: Colors.red,
+                    );
+                  case 1:
+                    return Icon(
+                      Icons.sentiment_dissatisfied,
+                      color: Colors.redAccent,
+                    );
+                  case 2:
+                    return Icon(
+                      Icons.sentiment_neutral,
+                      color: Colors.amber,
+                    );
+                  case 3:
+                    return Icon(
+                      Icons.sentiment_satisfied,
+                      color: Colors.lightGreen,
+                    );
+                  default:
+                    return Icon(
+                      Icons.sentiment_very_satisfied,
+                      color: Colors.green,
+                    );
+                }
+              },
+              onRatingUpdate: (rating) {
+                print(rating);
+              },
+            ),
             const SizedBox(
               height: 30,
             ),
