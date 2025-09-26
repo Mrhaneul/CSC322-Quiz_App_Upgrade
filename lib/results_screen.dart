@@ -64,8 +64,15 @@ class ResultsScreen extends StatelessWidget {
 
             const SizedBox(height: 24),
 
+            QuestionText(
+              text: "Please rate this app!",
+              color: Colors.white,
+              fontsize: 24,
+              fontfamily: 'Lato',
+            ),
+
             RatingBar.builder(
-              initialRating: 3,
+              initialRating: 5,
               itemCount: 5,
               itemBuilder: (context, index) {
                 switch (index) {
