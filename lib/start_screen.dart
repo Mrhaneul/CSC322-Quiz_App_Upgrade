@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class StartScreen extends StatelessWidget {
-  const StartScreen(this.startQuiz, {super.key});
+  const StartScreen(this.isDarkMode, this.startQuiz, this.toggleDarkMode, {super.key});
 
   // startQuiz --> void Function, it takes no arguments and does not return a value
-  final void Function() startQuiz;
+  final void Function() startQuiz; 
+  final bool isDarkMode; // true if dark mode is on, false if light mode
+  final void Function() toggleDarkMode; // function to toggle dark mode
 
   @override
   Widget build(context) {
@@ -13,6 +15,10 @@ class StartScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          IconButton(
+            onPressed: toggleDarkMode,
+            icon: Icon(isDarkMode ? Icons.light_mode : Icons.dark_mode),
+          ),
           Image.asset(
             'assets/images/quiz-logo.png',
             width: 300,

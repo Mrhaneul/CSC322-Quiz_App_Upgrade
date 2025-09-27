@@ -20,8 +20,8 @@ class Quiz extends StatefulWidget {
 // This State classs and type is closely connected to another class and type
 class _QuizState extends State<Quiz> {
   List<String> selectedAnswers = [];
-
   var activeScreen = 'start-screen';
+  bool isDarkMode = false; // automatically set to light mode
 
   // When switchScreen executed, activeScreen set to QuestionsScreen
   // build method run again
@@ -48,18 +48,28 @@ class _QuizState extends State<Quiz> {
     });
   }
 
+  void toggleDarkMode() {
+    setState(() {
+      isDarkMode = !isDarkMode; // Toggle the boolean value
+    });
+  }
+
+
+
   @override
   Widget build(context) {
-    Widget screenWidget = StartScreen(switchScreen);
+    Widget screenWidget = StartScreen(isDarkMode, switchScreen);
 
     if (activeScreen == 'questions-screen') {
       screenWidget = QuestionsScreen(
+        isDarkMode: isDarkMode,
         onSelectAnswer: chooseAnswer,
       );
     }
 
     if (activeScreen == 'results-screen') {
       screenWidget = ResultsScreen(
+        isDarkMode: isDarkMode,
         chosenAnswers: selectedAnswers,
         onRestart: restartQuiz,
       );
@@ -68,12 +78,17 @@ class _QuizState extends State<Quiz> {
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(255, 7, 131, 255),
-                Color.fromARGB(255, 164, 112, 255),
-              ],
+              colors: isDarkMode 
+                ? [
+                    const Color.fromARGB(255, 20, 20, 30),
+                    const Color.fromARGB(255, 40, 40, 60),
+                  ]
+                : [
+                    const Color.fromARGB(255, 7, 131, 255),
+                    const Color.fromARGB(255, 164, 112, 255),
+                  ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),

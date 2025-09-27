@@ -8,10 +8,12 @@ import 'package:quiz_app/questions_theme/question_theme.dart';
 class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen({
     super.key,
+    required this.isDarkMode,
     required this.onSelectAnswer,
   });
 
   final void Function(String answer) onSelectAnswer;
+  final bool isDarkMode;
 
   @override
   State<QuestionsScreen> createState() {
@@ -39,11 +41,26 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     return SizedBox(
       width: double.infinity, // be wide as possible
       child: Container(
+        
         margin: const EdgeInsets.all(40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                onPressed: () {
+                  // Add functionality to toggle dark mode
+                },
+                icon: Icon(
+                  widget.isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                tooltip: widget.isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode',
+              ),
+            ),
             QuestionText(text: currentQuestion.text),
             const SizedBox(height: 30),
             ...currentQuestion.getShuffledAnswers().map((answer) {
