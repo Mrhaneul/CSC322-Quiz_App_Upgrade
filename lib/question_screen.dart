@@ -8,12 +8,10 @@ import 'package:quiz_app/questions_theme/question_theme.dart';
 class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen({
     super.key,
-    required this.isDarkMode,
     required this.onSelectAnswer,
   });
 
   final void Function(String answer) onSelectAnswer;
-  final bool isDarkMode;
 
   @override
   State<QuestionsScreen> createState() {
@@ -23,6 +21,14 @@ class QuestionsScreen extends StatefulWidget {
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
   var currentQuestionIndex = 0;
+  List<String> shuffledAnswers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Shuffle answers only once when the screen is created
+    shuffledAnswers = questions[currentQuestionIndex].getShuffledAnswers();
+  }
 
   // Receive the answer the user picked and forward it to the parent via the callback
   void answerQuestion(String selectedAnswer) {
@@ -31,6 +37,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     ); // pass the real selected answer instead of placeholder
     setState(() {
       currentQuestionIndex++; // increment by 1
+      // Shuffle answers for the next question (if there is one)
+      if (currentQuestionIndex < questions.length) {
+        shuffledAnswers = questions[currentQuestionIndex].getShuffledAnswers();
+      }
     });
   }
 
@@ -47,25 +57,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                onPressed: () {
-                  // Add functionality to toggle dark mode
-                },
-                icon: Icon(
-                  widget.isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                  color: Colors.white,
-                  size: 30,
-                ),
-                tooltip: widget.isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode',
-              ),
-            ),
             QuestionText(text: currentQuestion.text),
             const SizedBox(height: 30),
-            ...currentQuestion.getShuffledAnswers().map((answer) {
-              // Chained
-              // Spreading the children list to individual values==> pull them and place them as comma-separated values
+            ...shuffledAnswers.map((answer) {
+              // Use pre-shuffled answers instead of shuffling every rebuild
               return AnswerButton(
                 answerText: answer,
                 onTap: () {

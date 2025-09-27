@@ -8,12 +8,10 @@ class ResultsScreen extends StatelessWidget {
     super.key,
     required this.chosenAnswers,
     required this.onRestart,
-    required this.isDarkMode,
   });
 
   final void Function() onRestart;
   final List<String> chosenAnswers;
-  final bool isDarkMode;
 
   // Map ==> key pair values
   // Returns list of maps

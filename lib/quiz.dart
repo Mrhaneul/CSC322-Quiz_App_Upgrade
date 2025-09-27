@@ -58,18 +58,16 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(context) {
-    Widget screenWidget = StartScreen(isDarkMode, switchScreen);
+    Widget screenWidget = StartScreen(switchScreen);
 
     if (activeScreen == 'questions-screen') {
       screenWidget = QuestionsScreen(
-        isDarkMode: isDarkMode,
         onSelectAnswer: chooseAnswer,
       );
     }
 
     if (activeScreen == 'results-screen') {
       screenWidget = ResultsScreen(
-        isDarkMode: isDarkMode,
         chosenAnswers: selectedAnswers,
         onRestart: restartQuiz,
       );
@@ -81,10 +79,12 @@ class _QuizState extends State<Quiz> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: isDarkMode 
+              // Colors used for dark mode
                 ? [
                     const Color.fromARGB(255, 20, 20, 30),
                     const Color.fromARGB(255, 40, 40, 60),
                   ]
+                  // Colors used for light mode
                 : [
                     const Color.fromARGB(255, 7, 131, 255),
                     const Color.fromARGB(255, 164, 112, 255),
@@ -93,10 +93,26 @@ class _QuizState extends State<Quiz> {
               end: Alignment.bottomRight,
             ),
           ),
-          // activeScreen(StartScreen) displayed
-          // activeScreen(QuestionsScreen) displayed if switchScreen is executed
-          // if returns true, startScreen, else questionScreen
-          child: screenWidget,
+          child: Stack(
+            children: [
+              // Main screen content
+              screenWidget,
+              // Dark mode button - always in same position
+              Positioned(
+                top: 50,
+                right: 20,
+                child: IconButton(
+                  onPressed: toggleDarkMode,
+                  icon: Icon(
+                    isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  tooltip: isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode',
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
