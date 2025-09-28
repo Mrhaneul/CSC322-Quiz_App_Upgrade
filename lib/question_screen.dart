@@ -20,6 +20,14 @@ class QuestionsScreen extends StatefulWidget {
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
   var currentQuestionIndex = 0;
+  List<String> shuffledAnswers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Shuffle answers only once when the screen is created
+    shuffledAnswers = questions[currentQuestionIndex].getShuffledAnswers();
+  }
 
   // Receive the answer the user picked and forward it to the parent via the callback
   void answerQuestion(String selectedAnswer) {
@@ -28,6 +36,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     ); // pass the real selected answer instead of placeholder
     setState(() {
       currentQuestionIndex++; // increment by 1
+      // Shuffle answers for the next question (if there is one)
+      if (currentQuestionIndex < questions.length) {
+        shuffledAnswers = questions[currentQuestionIndex].getShuffledAnswers();
+      }
     });
   }
 
@@ -38,6 +50,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     return SizedBox(
       width: double.infinity, // be wide as possible
       child: Container(
+        
         margin: const EdgeInsets.all(40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -50,9 +63,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               color: Colors.white,
             ),
             const SizedBox(height: 30),
-            ...currentQuestion.getShuffledAnswers().map((answer) {
-              // Chained
-              // Spreading the children list to individual values==> pull them and place them as comma-separated values
+            ...shuffledAnswers.map((answer) {
+              // Use pre-shuffled answers instead of shuffling every rebuild
               return AnswerButton(
                 answerText: answer,
                 onTap: () {

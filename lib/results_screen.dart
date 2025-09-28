@@ -54,7 +54,7 @@ class ResultsScreen extends StatelessWidget {
                   'You answered $numCorrectQuestions out of $numTotalQuestions questions correctly!',
               color: Colors.white,
               fontsize: 24,
-              fontfamily: 'Lato',
+              fontfamily: 'B612',
             ),
             const SizedBox(
               height: 30,
@@ -68,7 +68,7 @@ class ResultsScreen extends StatelessWidget {
               text: "Please rate this app!",
               color: Colors.white,
               fontsize: 24,
-              fontfamily: 'Lato',
+              fontfamily: 'B612',
             ),
 
             RatingBar.builder(
