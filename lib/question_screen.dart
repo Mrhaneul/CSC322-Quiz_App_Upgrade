@@ -50,7 +50,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     return SizedBox(
       width: double.infinity, // be wide as possible
       child: Container(
-        
         margin: const EdgeInsets.all(40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +59,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               text: currentQuestion.text,
               fontsize: 24,
               fontfamily: 'B612',
-              color: Colors.white,
+              color: const Color.fromARGB(255, 255, 231, 92),
             ),
             const SizedBox(height: 30),
             ...shuffledAnswers.map((answer) {
