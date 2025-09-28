@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/answer_button.dart';
-import 'package:quiz_app/data/questions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:quiz_app/questions_theme/question_theme.dart';
@@ -38,7 +37,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   @override
   Widget build(context) {
-    final currentQuestion = questions[currentQuestionIndex];
+    final currentQuestion = widget.questions[currentQuestionIndex];
 
     return SizedBox(
       width: double.infinity, // be wide as possible
@@ -49,7 +48,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             StepProgressIndicator(
-              totalSteps: questions.length,
+              totalSteps: widget.questions.length,
               currentStep: currentQuestionIndex,
               size: 20,
               selectedColor: const Color.fromARGB(255, 255, 0, 195),
