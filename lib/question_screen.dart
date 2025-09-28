@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/answer_button.dart';
 import 'package:quiz_app/data/questions.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:quiz_app/questions_theme/question_theme.dart';
+import 'package:quiz_app/models/quiz_question.dart';
 
 //Changes made to test
 
@@ -11,9 +12,10 @@ class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen({
     super.key,
     required this.onSelectAnswer,
+    required this.questions,
   });
-
-  final void Function(String answer) onSelectAnswer;
+  final void Function(String) onSelectAnswer;
+  final List<QuizQuestion> questions;
 
   @override
   State<QuestionsScreen> createState() {

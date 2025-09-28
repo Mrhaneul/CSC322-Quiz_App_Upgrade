@@ -8,10 +8,16 @@ class ResultsScreen extends StatelessWidget {
     super.key,
     required this.chosenAnswers,
     required this.onRestart,
+    required this.onReview,
+    this.summaryOverride,
+    this.totalQuestionsOverride,
   });
 
   final void Function() onRestart;
   final List<String> chosenAnswers;
+  final void Function() onReview;
+  final List<Map<String, Object>>? summaryOverride;
+  final int? totalQuestionsOverride;
 
   // Map ==> key pair values
   // Returns list of maps
@@ -34,12 +40,14 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summaryData = getSummaryData();
-    final numTotalQuestions = questions.length;
+    final summaryData = summaryOverride ?? getSummaryData();
+
+    final numTotalQuestions = totalQuestionsOverride ?? summaryData.length;
     final numCorrectQuestions = summaryData.where((data) {
       return data['user_answer'] ==
           data['correct_answer']; // true if data should be kept, and false if data should be dropped
     }).length; // num of questions
+    final numWrongQuestions = numTotalQuestions - numCorrectQuestions;
 
     return SizedBox(
       width: double.infinity, // be wide as possible
@@ -75,14 +83,15 @@ class ResultsScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            TextButton.icon(
-              onPressed: onRestart,
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white,
+            if (numWrongQuestions > 0)
+              TextButton.icon(
+                onPressed: onReview,
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.white,
+                ),
+                icon: const Icon(Icons.refresh),
+                label: const Text('Review Wrong Questions?'),
               ),
-              icon: const Icon(Icons.refresh),
-              label: const Text('Want to Review the Wrong Questions?'),
-            ),
           ],
         ),
       ),
