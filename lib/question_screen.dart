@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/answer_button.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:quiz_app/questions_theme/question_theme.dart';
 import 'package:quiz_app/models/quiz_question.dart';
@@ -24,6 +23,14 @@ class QuestionsScreen extends StatefulWidget {
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
   var currentQuestionIndex = 0;
+  List<String> shuffledAnswers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Shuffle answers only once when the screen is created
+    shuffledAnswers = questions[currentQuestionIndex].getShuffledAnswers();
+  }
 
   // Receive the answer the user picked and forward it to the parent via the callback
   void answerQuestion(String selectedAnswer) {
@@ -32,6 +39,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     ); // pass the real selected answer instead of placeholder
     setState(() {
       currentQuestionIndex++; // increment by 1
+      // Shuffle answers for the next question (if there is one)
+      if (currentQuestionIndex < questions.length) {
+        shuffledAnswers = questions[currentQuestionIndex].getShuffledAnswers();
+      }
     });
   }
 
@@ -57,10 +68,15 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             ),
             const SizedBox(height: 20),
             QuestionText(text: currentQuestion.text),
+            QuestionText(
+              text: currentQuestion.text,
+              fontsize: 24,
+              fontfamily: 'B612',
+              color: const Color.fromARGB(255, 255, 231, 92),
+            ),
             const SizedBox(height: 30),
-            ...currentQuestion.getShuffledAnswers().map((answer) {
-              // Chained
-              // Spreading the children list to individual values==> pull them and place them as comma-separated values
+            ...shuffledAnswers.map((answer) {
+              // Use pre-shuffled answers instead of shuffling every rebuild
               return AnswerButton(
                 answerText: answer,
                 onTap: () {

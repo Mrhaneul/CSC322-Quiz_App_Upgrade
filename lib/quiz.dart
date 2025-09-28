@@ -49,6 +49,7 @@ class _QuizState extends State<Quiz> {
   }
 
   var activeScreen = 'start-screen';
+  bool isDarkMode = false; // automatically set to light mode
 
   // When switchScreen executed, activeScreen set to QuestionsScreen
   // build method run again
@@ -74,6 +75,12 @@ class _QuizState extends State<Quiz> {
       isReviewing = false;
       selectedAnswers = [];
       activeScreen = 'questions-screen';
+    });
+  }
+
+  void toggleDarkMode() {
+    setState(() {
+      isDarkMode = !isDarkMode; // Toggle the boolean value
     });
   }
 
@@ -114,20 +121,45 @@ class _QuizState extends State<Quiz> {
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(255, 7, 131, 255),
-                Color.fromARGB(255, 164, 112, 255),
-              ],
+              colors: isDarkMode
+                  // Colors used for dark mode
+                  ? [
+                      const Color.fromARGB(255, 20, 20, 30),
+                      const Color.fromARGB(255, 40, 40, 60),
+                    ]
+                  // Colors used for light mode
+                  : [
+                      const Color.fromARGB(255, 255, 251, 30),
+                      const Color.fromARGB(255, 92, 74, 255),
+                    ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
-          // activeScreen(StartScreen) displayed
-          // activeScreen(QuestionsScreen) displayed if switchScreen is executed
-          // if returns true, startScreen, else questionScreen
-          child: screenWidget,
+          child: Stack(
+            children: [
+              // Main screen content
+              screenWidget,
+              // Dark mode button - always in same position
+              Positioned(
+                top: 50,
+                right: 20,
+                child: IconButton(
+                  onPressed: toggleDarkMode,
+                  icon: Icon(
+                    isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  tooltip: isDarkMode
+                      ? 'Switch to Light Mode'
+                      : 'Switch to Dark Mode',
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
