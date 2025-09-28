@@ -3,6 +3,7 @@ import 'package:quiz_app/answer_button.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:quiz_app/questions_theme/question_theme.dart';
 import 'package:quiz_app/models/quiz_question.dart';
+import 'package:quiz_app/data/questions.dart';
 
 //Changes made to test
 
@@ -67,7 +68,6 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               roundedEdges: Radius.circular(10),
             ),
             const SizedBox(height: 20),
-            QuestionText(text: currentQuestion.text),
             QuestionText(
               text: currentQuestion.text,
               fontsize: 24,
