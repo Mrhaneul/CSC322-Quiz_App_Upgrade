@@ -84,8 +84,8 @@ class _QuizState extends State<Quiz> {
                     ]
                   // Colors used for light mode
                   : [
-                      const Color.fromARGB(255, 7, 131, 255),
-                      const Color.fromARGB(255, 164, 112, 255),
+                      const Color.fromARGB(255, 255, 251, 30),
+                      const Color.fromARGB(255, 92, 74, 255),
                     ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
