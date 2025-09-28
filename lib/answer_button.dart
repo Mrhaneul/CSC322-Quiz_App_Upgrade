@@ -8,8 +8,7 @@ class AnswerButton extends StatelessWidget {
   });
 
   final String answerText;
-  final void Function()
-  onTap; // we receive as an argument and then use as a value for onPressed
+  final void Function() onTap; // we receive as an argument and then use as a value for onPressed
 
   @override
   Widget build(BuildContext context) {
